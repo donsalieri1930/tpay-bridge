@@ -33,7 +33,9 @@ def get_invoice_payer(invoice: Invoice, payer: int | bool) -> InvoicePayer:
 async def create_tpay_transaction(
         token: TpayAccessToken,
         invoice: Invoice,
-        payer: int | bool) -> Any:
+        payer: int | bool,
+        uuid: str
+) -> Any:
 
     payload = {
         'amount': str(invoice.amount),
@@ -42,7 +44,7 @@ async def create_tpay_transaction(
         'hiddenDescription': invoice.invoice_id,
         'callbacks': {
             'payerUrls': {
-                'success': FRONTEND_URL + '/success/',
+                'success': FRONTEND_URL + '/?uuid=' + uuid,
                 'error': FRONTEND_URL + '/error/'
             }
         }

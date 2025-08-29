@@ -29,7 +29,7 @@ async def create(uuid: str, payer: int, connection: ConnectionDep):
     if invoice.paid:
         raise HTTPException(409)
     token = await tpay_token.get_access_token()
-    result = await create_tpay_transaction(token, invoice, payer)
+    result = await create_tpay_transaction(token, invoice, payer, uuid)
     logging.info(
         'created invoiceID=%s uuid=%s payer=%d title=%s',
         invoice.invoice_id, uuid, payer, result['title']
