@@ -61,7 +61,7 @@ async def callback(request: Request, connection: ConnectionDep):
             case _:
                 boolean_status = False
 
-        await update_invoice_status(connection, tr_crc, boolean_status)
+        await update_invoice_status(connection, tr_crc, boolean_status, tr_id)
         logging.info(
             'callback invoiceID=%s title=%s status=%s',
             tr_crc, tr_id, tr_status

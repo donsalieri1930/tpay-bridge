@@ -60,13 +60,13 @@ async def create_tpay_transaction(
         return response.json()
 
 
-async def update_invoice_status(connection: AsyncConnection, invoice_id: str, paid: bool, tr_id: str | None) -> None:
+async def update_invoice_status(connection: AsyncConnection, invoice_id: str, paid: bool, tr_id: str | None = None) -> None:
     await execute_sql_from_file(
         connection,
         'status.sql',
         {
             'invoice_id': invoice_id,
             'paid': int(paid),
-            'tpay_title': tr_id
+            'tr_id': tr_id
         }
     )
