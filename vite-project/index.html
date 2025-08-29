@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="pl" data-theme="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Płatności Węgielek</title>
+    <link rel="icon" href="/favicon.ico" sizes="any">
+  </head>
+  <body>
+    <section class="section">
+      <div class="container is-max-desktop">
+        <img src="/src/logo.svg" alt="Logo" class="logo">
+      </div>
+    </section>
+    <section class="section" id="content">
+      <div class="container is-max-desktop">
+        <div class="card">
+          <header class="card-header">
+            <p class="card-header-title">Status rachunku</p>
+            <span class="card-header-icon">
+              <span id=paid class="tag is-medium" title="Status faktury">Nieopłacony</span>
+            </span>
+          </header>
+          <div class="card-content">
+            <div class="block">
+              <p class="has-text-grey is-size-7 has-text-weight-semibold">Numer rachunku</p>
+              <p id=invoiceID class="is-size-5 mb-1">&nbsp;</p>
+            </div>
+            <div class="block">
+              <p class="has-text-grey is-size-7 has-text-weight-semibold">Kwota do zapłaty</p>
+              <p id=amount class="title is-3 mb-1">&nbsp;</p>
+            </div>
+            <div class="block">
+              <p class="has-text-grey is-size-7 has-text-weight-semibold">Dziecko</p>
+              <p id=invoiceName class="is-size-5">&nbsp;</p>
+            </div>
+            <div class="block">
+              <p class="has-text-grey is-size-7 has-text-weight-semibold">Okres rozliczeniowy</p>
+              <p id=billingMonth class="is-size-5">&nbsp;</p>
+            </div>
+            <div class="block">
+              <div class="field">
+                <label class="label" for="payer">Wybierz płatnika</label>
+                <div class="control">
+                  <div class="select is-fullwidth">
+                    <select id="payer" name="payer" aria-label="Wybierz płatnika">
+                      <option value=0></option>
+                      <option value=1></option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="block">
+              <div class="field">
+                <p class="control">
+                  <button id=cta class="button is-primary is-fullwidth">Zapłać</button>
+                </p>
+                <p class="help is-size-7 has-text-grey has-text-centered">
+                  Zostaniesz przekierowany do serwisu tpay.com
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section> 
+    <footer class="footer">
+      <div class="container is-max-desktop">
+        <p>Kontakt</p>
+        <a href="mailto:platnosci@wegielek.edu.pl">platnosci@wegielek.edu.pl</a>
+        <p class="mt-5">© Stowarzyszenie na rzecz Edukacji i Rodziny Węgielek</p>
+      </div>
+    </footer>
+    <script type="module" src="/src/before-dom.ts"></script>
+    <script type="module" src="/src/load-css.ts"></script>
+    <script type="module" src="/src/after-dom.ts">
+    </script>
+  </body>
+</html>
