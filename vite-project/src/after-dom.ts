@@ -6,7 +6,7 @@ function showInvalid() {
     el!.innerHTML = `
     <div class="container is-max-desktop">
       <p class="is-size-5 mb-1"><strong>Nieprawidłowy identyfikator</strong></p>
-      <p>Upewnij się, że korzystasz z linku pochodzącego z <u>aktualnej</u> wiadomości email. Jeśli to błąd, prosimy o kontakt na adres podany poniżej.</p>
+      <p>Upewnij się, że korzystasz z linku pochodzącego z <u>aktualnej</u> wiadomości email.</p>
     </div>`;
 }
 
