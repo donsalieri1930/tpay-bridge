@@ -26,7 +26,7 @@ class Invoice(NamedTuple):
         return {
             'payers': mask_last_word(self.payers.upper()),
             'invoiceName': mask_first_word(self.invoice_name.upper()),
-            'amount': str(self.amount),
+            'amount': str(self.amount).replace('.', ','),
             'invoiceID': self.invoice_id,
             'billingMonth': self.billing_month,
             'payer0Email': mask_email(self.payer_0_email),

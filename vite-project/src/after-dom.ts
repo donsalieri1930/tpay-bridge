@@ -37,7 +37,7 @@ const main = async () => {
 
     invoiceIDEl.textContent = data.invoiceID;
     invoiceNameEl.textContent = data.invoiceName;
-    amountEl.textContent = `${data.amount} PLN`;
+    amountEl.textContent = `${data.amount} zł`;
     billingMonthEl.textContent = data.billingMonth;
 
     payerSel.querySelector<HTMLOptionElement>('option[value="0"]')!.text =
