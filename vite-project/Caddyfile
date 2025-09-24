@@ -1,5 +1,5 @@
 :5173 {
-	root * /home/don/wegielek-tpay-bulma/dist
+	root * ./dist
 	file_server
 
 	handle_path /api/* {

@@ -1,7 +1,7 @@
-SANDBOX = True
+SANDBOX = False
 CHARGEBACK_UPDATES_STATUS = True
 HTTPX_REQUEST_TIMEOUT = 5.0
-TPAY_TOKEN_URL = 'https://secure.sandbox.tpay.com'
+TPAY_TOKEN_URL = 'https://api.tpay.com'
 TPAY_CERT_URL = 'https://secure.tpay.com/x509/notifications-jws.pem'
 FRONTEND_URL = 'https://pay.wegielek.edu.pl'
 
