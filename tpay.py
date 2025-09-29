@@ -22,11 +22,11 @@ def get_invoice_payer(invoice: Invoice, payer: int | bool) -> InvoicePayer:
     if not payer:
         return InvoicePayer(
             invoice.payer_0_last_name + ' ' + invoice.payer_0_name,
-            invoice.payer_0_email
+            invoice.payer_0_email.strip()
         )
     return InvoicePayer(
         invoice.payer_1_last_name + ' ' + invoice.payer_1_name,
-        invoice.payer_1_email
+        invoice.payer_1_email.strip()
     )
 
 
