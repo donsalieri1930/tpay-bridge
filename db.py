@@ -7,7 +7,7 @@ from sqlalchemy.ext.asyncio import create_async_engine, AsyncConnection
 
 from settings import DATABASE_URI, BASE_DIR
 
-engine = create_async_engine(DATABASE_URI, echo=False, pool_pre_ping=True)
+engine = create_async_engine(DATABASE_URI, echo=False, pool_pre_ping=True, pool_recycle=240)
 
 
 async def get_connection() -> AsyncGenerator[AsyncConnection, None]:
