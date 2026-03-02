@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncConnection
 
 from db import query_and_cast, execute_sql_from_file
 from models import Invoice, InvoicePayer, TpayAccessToken
-from settings import TPAY_TOKEN_URL, HTTPX_REQUEST_TIMEOUT, FRONTEND_URL
+from settings import TPAY_TOKEN_URL, HTTPX_REQUEST_TIMEOUT, FRONTEND_URL, DONATION_DESCRIPTION
 
 
 async def get_invoice(connection: AsyncConnection, uuid: str) -> Invoice | None:
@@ -34,14 +34,18 @@ async def create_tpay_transaction(
         token: TpayAccessToken,
         invoice: Invoice,
         payer: int | bool,
-        uuid: str
+        uuid: str,
+        is_donation: bool = False,
+        # Custom ammount should be passed only for donations. For
+        # invoice payments ammount must be determined by the invoice.
+        amount: str | None = None
 ) -> Any:
 
     payload = {
-        'amount': str(invoice.amount),
-        'description': f'{invoice.invoice_name}, {invoice.billing_month}',
+        'amount': amount or str(invoice.amount),
+        'description': DONATION_DESCRIPTION if is_donation else f'{invoice.invoice_name}, {invoice.billing_month}',
         'payer': get_invoice_payer(invoice, payer)._asdict(),
-        'hiddenDescription': invoice.invoice_id,
+        'hiddenDescription': f'donation {invoice.invoice_id}' if is_donation else invoice.invoice_id,
         'callbacks': {
             'payerUrls': {
                 'success': FRONTEND_URL + '/?uuid=' + uuid,
