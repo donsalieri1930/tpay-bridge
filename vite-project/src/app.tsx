@@ -7,7 +7,7 @@ export function App() {
   return (
     <Routes>
       <Route element={<InvoicePage />} path="/" />
-      <Route element={<DonationPage />} path="/darowizna" />
+      <Route element={<DonationPage />} path="/donate" />
       <Route element={<Navigate replace to="/" />} path="/success" />
       <Route element={<Navigate replace to="/" />} path="/error" />
       <Route element={<Navigate replace to="/" />} path="*" />

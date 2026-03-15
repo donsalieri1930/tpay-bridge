@@ -35,18 +35,3 @@ export function Card({
     </section>
   )
 }
-
-export function FieldBlock({
-  label,
-  value,
-}: {
-  label: string
-  value: ReactNode
-}) {
-  return (
-    <div className="space-y-1">
-      <div className="text-sm text-ink/58">{label}</div>
-      <div className="text-sm font-medium text-ink/88">{value}</div>
-    </div>
-  )
-}

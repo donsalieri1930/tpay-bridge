@@ -30,9 +30,3 @@
     background-position: -200% 0;
   }
 }
-
-@layer components {
-  .field-label {
-    @apply mb-2 block text-sm font-medium text-ink;
-  }
-}

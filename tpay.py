@@ -40,6 +40,11 @@ async def create_tpay_transaction(
         # invoice payments ammount must be determined by the invoice.
         amount: str | None = None
 ) -> Any:
+    payer_return_url = (
+        f'{FRONTEND_URL}/donate?uuid={uuid}'
+        if is_donation
+        else f'{FRONTEND_URL}/?uuid={uuid}'
+    )
 
     payload = {
         'amount': amount or str(invoice.amount),
@@ -48,8 +53,8 @@ async def create_tpay_transaction(
         'hiddenDescription': f'donation {invoice.invoice_id}' if is_donation else invoice.invoice_id,
         'callbacks': {
             'payerUrls': {
-                'success': FRONTEND_URL + '/?uuid=' + uuid,
-                'error': FRONTEND_URL + '/error/'
+                'success': payer_return_url,
+                'error': payer_return_url,
             }
         }
     }

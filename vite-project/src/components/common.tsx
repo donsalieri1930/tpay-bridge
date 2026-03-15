@@ -1,4 +1,4 @@
-import { LoaderCircle } from 'lucide-react'
+import { CircleAlert, LoaderCircle } from 'lucide-react'
 import type { ReactNode } from 'react'
 
 import { cn } from '../lib/utils'
@@ -36,19 +36,21 @@ export function PayerButtons({
 
 export function PrimaryButton({
   busy,
+  disabled,
   children,
 }: {
   busy?: boolean
+  disabled?: boolean
   children: ReactNode
 }) {
   return (
     <button
       className="inline-flex w-full items-center justify-center gap-2 rounded-[1.35rem] bg-ember-600 px-4 py-4 text-base font-semibold text-white transition hover:bg-ember-700 disabled:cursor-not-allowed disabled:bg-ember-300"
-      disabled={busy}
+      disabled={busy || disabled}
       type="submit"
     >
       {busy ? <LoaderCircle className="h-4 w-4 animate-spin" /> : null}
-      {busy ? 'Rejestrowanie transkacji' : children}
+      {busy ? 'Tworzenie transakcji' : children}
     </button>
   )
 }
@@ -78,6 +80,48 @@ export function SkeletonBlock({
       )}
     >
       &nbsp;
+    </div>
+  )
+}
+
+export function TextSkeleton({
+  reserveText = 'M',
+  className,
+  skeletonClassName,
+  wrapperClassName,
+}: {
+  reserveText?: string
+  className: string
+  skeletonClassName: string
+  wrapperClassName?: string
+}) {
+  return (
+    <div className={cn('relative inline-block', wrapperClassName)}>
+      <div aria-hidden className={cn('block w-full invisible', className)}>
+        {reserveText}
+      </div>
+      <SkeletonBlock className={`absolute inset-x-0 top-1/2 -translate-y-1/2 ${skeletonClassName}`} />
+    </div>
+  )
+}
+
+export function InvalidLinkCard() {
+  return (
+    <div className="py-12 text-center">
+      <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-ember-50/85 text-ember-600 ring-1 ring-ember-100">
+        <CircleAlert className="h-5 w-5" />
+      </div>
+      <h1 className="mt-5 text-[1.35rem] font-semibold tracking-tight text-ink">Nieprawidłowy link</h1>
+      <p className="mt-3 text-sm leading-6 text-ink/68">
+        Jeśli to błąd, skontaktuj się z{' '}
+        <a
+          className="font-medium text-ember-700 hover:text-ember-800"
+          href="mailto:platnosci@wegielek.edu.pl"
+        >
+          pomocą techniczną
+        </a>
+        .
+      </p>
     </div>
   )
 }
