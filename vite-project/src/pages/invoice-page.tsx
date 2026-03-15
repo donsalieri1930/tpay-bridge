@@ -14,7 +14,7 @@ export function InvoicePage() {
   const [copied, setCopied] = useState(false)
   const [error, setError] = useState('')
   const [payer, setPayer] = useState<PayerIndex>(0)
-  const { invoice, loading, invalid } = useInvoiceInfo('Rachunek | Węgielek')
+  const { invoice, loading, invalid } = useInvoiceInfo('Rachunek | Żar')
 
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault()
