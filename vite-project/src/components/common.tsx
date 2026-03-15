@@ -112,14 +112,14 @@ export function InvalidLinkCard() {
         <CircleAlert className="h-5 w-5" />
       </div>
       <h1 className="mt-5 text-[1.35rem] font-semibold tracking-tight text-ink">Nieprawidłowy link</h1>
-      <p className="mt-3 text-sm leading-6 text-ink/68">
-        Jeśli to błąd, skontaktuj się z{' '}
-        <a
-          className="font-medium text-ember-700 hover:text-ember-800"
-          href="mailto:platnosci@wegielek.edu.pl"
-        >
-          pomocą techniczną
-        </a>
+        <p className="mt-3 text-sm leading-6 text-ink/68">
+          Jeśli to błąd, skontaktuj się z{' '}
+          <a
+            className="font-medium text-ember-700 hover:text-ember-800"
+            href="mailto:noty@zar.edu.pl"
+          >
+            pomocą techniczną
+          </a>
         .
       </p>
     </div>

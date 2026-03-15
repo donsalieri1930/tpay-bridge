@@ -16,7 +16,7 @@ export function DonationPage() {
   const [payer, setPayer] = useState<PayerIndex>(0)
   const [amountInput, setAmountInput] = useState('20')
   const amountInputRef = useRef<HTMLInputElement | null>(null)
-  const { invoice, loading, invalid } = useInvoiceInfo('Darowizna | Węgielek')
+  const { invoice, loading, invalid } = useInvoiceInfo('Darowizna | Żar')
 
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault()
@@ -67,7 +67,8 @@ export function DonationPage() {
       <Card>
         <form className="space-y-7" onSubmit={handleSubmit}>
           <div className="space-y-3">
-            <h1 className="text-[1.7rem] font-semibold tracking-tight text-ink">Wesprzyj Węgielek</h1>
+            <h1 className="text-[1.7rem] font-semibold tracking-tight text-ink">Wesprzyj Żar</h1>
+            <p className="text-sm text-ink/60">Darowizna na cele statutowe stowarzyszenia.</p>
           </div>
 
           <div className="space-y-1.5">
