@@ -37,25 +37,31 @@ export function useInvoiceInfo(title: string) {
 
     let cancelled = false
 
-    getInvoiceInfo(uuid)
-      .then((response) => {
+    async function loadInvoice() {
+      try {
+        const response = await getInvoiceInfo(uuid)
+
         if (cancelled) {
           return
         }
+
         setInvoice(response)
         setLoading(false)
-      })
-      .catch((error) => {
+      } catch (error) {
         if (cancelled) {
           return
         }
+
         if (error instanceof HttpError && error.status === 404) {
           setInvalid(true)
         } else {
           setInvalid(true)
         }
         setLoading(false)
-      })
+      }
+    }
+
+    loadInvoice()
 
     return () => {
       cancelled = true

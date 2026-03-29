@@ -17,10 +17,10 @@ export function PayerButtons({
       {payers.map((payer) => (
         <button
           className={cn(
-            'rounded-[1.25rem] border px-4 py-4 text-left transition',
+            'rounded-[1.25rem] border-2 px-4 py-4 text-left transition focus-visible:border-ember-500 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ember-100',
             active === payer.id
               ? 'border-ember-400 bg-ember-50/80 shadow-sm'
-              : 'border-ember-100 bg-white/70 hover:border-ember-300',
+              : 'border-transparent bg-white/65 hover:border-ember-200',
           )}
           key={payer.id}
           onClick={() => onChange(payer.id)}

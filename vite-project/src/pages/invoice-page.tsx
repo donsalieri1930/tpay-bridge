@@ -7,6 +7,8 @@ import { createInvoicePayment, readUuid } from '../lib/api'
 import { getAvailablePayers, useInvoiceInfo } from '../lib/invoice-info'
 import type { PayerIndex } from '../types'
 
+const fieldSkeletonWrapperClassName = 'block w-44 max-w-full'
+
 export function InvoicePage() {
   const [busy, setBusy] = useState(false)
   const [copied, setCopied] = useState(false)
@@ -32,6 +34,8 @@ export function InvoicePage() {
     }
   }
 
+  const availablePayers = getAvailablePayers(invoice)
+
   async function handleCopyInvoiceId() {
     const text = invoice?.invoiceID ?? ''
     try {
@@ -55,8 +59,6 @@ export function InvoicePage() {
     }
   }
 
-  const availablePayers = getAvailablePayers(invoice)
-
   if (!loading && (invalid || !invoice)) {
     return (
       <AppShell>
@@ -69,83 +71,23 @@ export function InvoicePage() {
     <AppShell>
       <Card>
         <form className="space-y-7" onSubmit={handleSubmit}>
-          <div className="space-y-3">
+          <div className="flex items-center justify-between gap-4">
             <h1 className="text-[1.55rem] font-semibold tracking-tight text-ink">
-              Płatność rachunku
+              Status rachunku
             </h1>
-            <div className="flex items-center gap-2">
-              {loading ? (
-                <>
-                  <TextSkeleton
-                    className="font-mono text-sm text-ink/72"
-                    skeletonClassName="h-4"
-                    wrapperClassName="w-36"
-                  />
-                  <button
-                    aria-label="Kopiuj numer rachunku"
-                    className="invisible inline-flex h-8 w-8 items-center justify-center rounded-full border border-ember-100 bg-white/70 text-ink/40"
-                    disabled
-                    type="button"
-                  >
-                    <Copy className="h-4 w-4" />
-                  </button>
-                </>
-              ) : (
-                <>
-                  <div className="font-mono text-sm text-ink/72">{invoice!.invoiceID}</div>
-                  <button
-                    aria-label="Kopiuj numer rachunku"
-                    className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-ember-100 bg-white/70 text-ink/72 transition hover:border-ember-300 hover:bg-white"
-                    onClick={handleCopyInvoiceId}
-                    title={copied ? 'Skopiowano' : 'Kopiuj numer rachunku'}
-                    type="button"
-                  >
-                    {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-                  </button>
-                </>
-              )}
-            </div>
-          </div>
-
-          <div className="rounded-[1.35rem] bg-ember-50/55 px-4 py-2">
-            <div className="flex items-start justify-between gap-4 border-b border-ember-100/80 py-3">
-              <div className="text-sm text-ink/58">Dotyczy</div>
+            <div className="flex shrink-0 items-center justify-end">
               {loading ? (
                 <TextSkeleton
-                  className="text-right text-sm font-medium text-ink/88"
-                  skeletonClassName="h-4 w-32"
-                  wrapperClassName="w-32"
-                />
-              ) : (
-                <div className="text-right text-sm font-medium text-ink/88">{invoice!.invoiceName}</div>
-              )}
-            </div>
-            <div className="flex items-start justify-between gap-4 border-b border-ember-100/80 py-3">
-              <div className="text-sm text-ink/58">Okres rozliczeniowy</div>
-              {loading ? (
-                <TextSkeleton
-                  className="min-w-0 text-right text-sm font-medium text-ink/88"
-                  skeletonClassName="h-4 w-28"
-                  wrapperClassName="w-28"
-                />
-              ) : (
-                <div className="min-w-0 text-right text-sm font-medium text-ink/88">{invoice!.billingMonth}</div>
-              )}
-            </div>
-            <div className="flex items-start justify-between gap-4 py-3">
-              <div className="text-sm text-ink/58">Status</div>
-              {loading ? (
-                <TextSkeleton
-                  className="min-w-0 text-right text-sm font-medium text-ink/60"
-                  skeletonClassName="h-4 w-24"
+                  className="text-sm font-semibold text-ink/60"
+                  skeletonClassName="h-5 rounded-full"
                   wrapperClassName="w-24"
                 />
               ) : (
                 <div
                   className={
                     invoice!.paid
-                      ? 'min-w-0 text-right text-sm font-medium text-emerald-700'
-                      : 'min-w-0 text-right text-sm font-medium text-ink/60'
+                      ? 'inline-flex rounded-full bg-emerald-50 px-3 py-1 text-sm font-semibold text-emerald-700 ring-1 ring-emerald-200'
+                      : 'inline-flex rounded-full bg-slate-100 px-3 py-1 text-sm font-semibold text-slate-700 ring-1 ring-slate-200'
                   }
                 >
                   {invoice!.paid ? 'Opłacony' : 'Nieopłacony'}
@@ -154,14 +96,83 @@ export function InvoicePage() {
             </div>
           </div>
 
-          <div className="space-y-1">
+          <section className="space-y-5">
+            <div className="space-y-1.5">
+              <div className="text-sm font-semibold tracking-[0.01em] text-ink/75">Dotyczy</div>
+              {loading ? (
+                <TextSkeleton
+                  className="text-[1.1rem] text-ink/88"
+                  skeletonClassName="h-5 w-full"
+                  wrapperClassName={fieldSkeletonWrapperClassName}
+                />
+              ) : (
+                <div className="text-[1.1rem] text-ink/88">{invoice!.invoiceName}</div>
+              )}
+            </div>
+
+            <div className="space-y-1.5">
+              <div className="text-sm font-semibold tracking-[0.01em] text-ink/75">Okres rozliczeniowy</div>
+              {loading ? (
+                <TextSkeleton
+                  className="text-[1.1rem] text-ink/88"
+                  skeletonClassName="h-5 w-full"
+                  wrapperClassName={fieldSkeletonWrapperClassName}
+                />
+              ) : (
+                <div className="text-[1.1rem] text-ink/88">{invoice!.billingMonth}</div>
+              )}
+            </div>
+
+            <div className="space-y-1.5">
+              <div className="text-sm font-semibold tracking-[0.01em] text-ink/75">Numer rachunku</div>
+              {loading ? (
+                <div className="min-w-0">
+                  <div className="inline-flex max-w-full items-baseline gap-2">
+                    <div className="relative min-w-0 break-all text-[1.1rem] text-ink/72 w-44 max-w-full">
+                      <div aria-hidden className="invisible">
+                        00/0000/0000
+                      </div>
+                      <SkeletonBlock className="absolute inset-x-0 top-1/2 h-5 w-full -translate-y-1/2 rounded-md" />
+                    </div>
+                    <button
+                      aria-hidden
+                      className="invisible inline-flex h-7 w-7 shrink-0 translate-y-[1px] items-center justify-center rounded-full border border-ember-100 bg-white/70 text-ink/72"
+                      tabIndex={-1}
+                      type="button"
+                    >
+                      <Copy className="h-3.5 w-3.5" />
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div className="min-w-0">
+                  <div className="inline-flex max-w-full items-baseline gap-2">
+                    <div className="min-w-0 break-all text-[1.1rem] text-ink/72">
+                      {invoice!.invoiceID}
+                    </div>
+                    <button
+                      aria-label="Kopiuj numer rachunku"
+                      className="inline-flex h-7 w-7 shrink-0 translate-y-[1px] items-center justify-center rounded-full border border-ember-100 bg-white/70 text-ink/72 transition hover:border-ember-300 hover:bg-white"
+                      onClick={handleCopyInvoiceId}
+                      title={copied ? 'Skopiowano' : 'Kopiuj numer rachunku'}
+                      type="button"
+                    >
+                      {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </section>
+
+          <div className="space-y-1.5">
             <div className="text-sm font-semibold tracking-[0.01em] text-ink/75">Kwota</div>
             {loading ? (
-              <TextSkeleton
-                className="text-[2.15rem] font-semibold tracking-tight text-ink"
-                skeletonClassName="h-6"
-                wrapperClassName="w-28"
-              />
+            <TextSkeleton
+              className="text-[2.15rem] font-semibold tracking-tight text-ink"
+              skeletonClassName="h-6"
+              wrapperClassName={fieldSkeletonWrapperClassName}
+            />
             ) : (
               <div className="text-[2.15rem] font-semibold tracking-tight text-ink">
                 {invoice!.amount} zł
@@ -173,8 +184,8 @@ export function InvoicePage() {
             <section className="space-y-3">
               <h2 className="text-sm font-semibold tracking-[0.01em] text-ink/75">Płacący</h2>
               <div className="grid gap-2">
-                <SkeletonBlock className="h-[5.375rem] w-full rounded-[1.25rem]" />
-                <SkeletonBlock className="h-[5.375rem] w-full rounded-[1.25rem]" />
+                <SkeletonBlock className="h-[5.5rem] w-full rounded-[1.25rem]" />
+                <SkeletonBlock className="h-[5.5rem] w-full rounded-[1.25rem]" />
               </div>
             </section>
           ) : !invoice!.paid ? (
@@ -190,7 +201,7 @@ export function InvoicePage() {
             <PrimaryButton busy={busy}>Przejdź do Tpay</PrimaryButton>
           ) : invoice!.paid ? (
             <div className="text-center text-sm text-ink/60">
-              Nie jest wymagane żadne działanie.
+              Rachunek jest już opłacony.
             </div>
           ) : null}
 

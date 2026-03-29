@@ -8,6 +8,7 @@ import { cn, normalizeAmountInput, parseDonationAmount } from '../lib/utils'
 import type { PayerIndex } from '../types'
 
 const presetAmounts = [10, 20, 50, 100]
+const fieldSkeletonWrapperClassName = 'block w-44 max-w-full'
 
 export function DonationPage() {
   const [busy, setBusy] = useState(false)
@@ -67,25 +68,27 @@ export function DonationPage() {
         <form className="space-y-7" onSubmit={handleSubmit}>
           <div className="space-y-3">
             <h1 className="text-[1.7rem] font-semibold tracking-tight text-ink">Wesprzyj Węgielek</h1>
-            <p className="text-sm text-ink/60">Darowizna na cele statutowe stowarzyszenia.</p>
           </div>
 
-          {loading ? (
-            <TextSkeleton
-              className="text-[1.05rem] font-medium text-ink/88"
-              skeletonClassName="h-4 w-56 max-w-full"
-              wrapperClassName="w-56 max-w-full"
-            />
-          ) : (
-            <div className="text-[1.05rem] font-medium text-ink/88">{invoice!.payers}</div>
-          )}
+          <div className="space-y-1.5">
+            <div className="text-sm font-semibold tracking-[0.01em] text-ink/75">Darczyńcy</div>
+            {loading ? (
+              <TextSkeleton
+                className="text-[1.05rem] text-ink/88"
+                skeletonClassName="h-5 w-full"
+                wrapperClassName={fieldSkeletonWrapperClassName}
+              />
+            ) : (
+              <div className="text-[1.05rem] text-ink/88">{invoice!.payers}</div>
+            )}
+          </div>
 
           <section className="space-y-3">
             <h2 className="text-sm font-semibold tracking-[0.01em] text-ink/75">Płacący</h2>
             {loading ? (
               <div className="grid gap-2">
-                <SkeletonBlock className="h-[5.375rem] w-full rounded-[1.25rem]" />
-                <SkeletonBlock className="h-[5.375rem] w-full rounded-[1.25rem]" />
+                <SkeletonBlock className="h-[5.5rem] w-full rounded-[1.25rem]" />
+                <SkeletonBlock className="h-[5.5rem] w-full rounded-[1.25rem]" />
               </div>
             ) : (
               <PayerButtons active={payer} onChange={setPayer} payers={availablePayers} />
@@ -100,10 +103,10 @@ export function DonationPage() {
                 return (
                   <button
                     className={cn(
-                      'rounded-[1.15rem] border px-0 py-3.5 text-sm font-semibold transition',
+                      'rounded-[1.15rem] border-2 px-0 py-3.5 text-sm font-semibold transition focus-visible:border-ember-500 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ember-100',
                       active
                         ? 'border-ember-400 bg-ember-50/80 text-ink shadow-sm'
-                        : 'border-ember-100 bg-white/70 text-ink hover:border-ember-300',
+                        : 'border-transparent bg-white/65 text-ink hover:border-ember-200',
                     )}
                     disabled={loading}
                     key={amount}
@@ -136,7 +139,7 @@ export function DonationPage() {
                     <input
                       id="custom-amount"
                       ref={amountInputRef}
-                      className="w-full rounded-[1.25rem] border border-ember-100 bg-white/75 px-4 py-4 pr-12 text-base font-semibold text-ink outline-none transition focus:border-ember-500 focus:ring-4 focus:ring-ember-100"
+                      className="w-full rounded-[1.25rem] border-2 border-transparent bg-white/65 px-4 py-4 pr-12 text-base font-semibold text-ink outline-none transition hover:border-ember-200 focus:border-ember-500 focus:ring-4 focus:ring-ember-100"
                       inputMode="numeric"
                       min="1"
                       max="9999"
