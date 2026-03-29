@@ -67,8 +67,7 @@ export function DonationPage() {
       <Card>
         <form className="space-y-7" onSubmit={handleSubmit}>
           <div className="space-y-3">
-            <h1 className="text-[1.7rem] font-semibold tracking-tight text-ink">Wesprzyj Żar</h1>
-            <p className="text-sm text-ink/60">Darowizna na cele statutowe stowarzyszenia.</p>
+            <h1 className="text-[1.7rem] font-semibold tracking-tight text-ink">Wesprzyj Fundację</h1>
           </div>
 
           <div className="space-y-1.5">
