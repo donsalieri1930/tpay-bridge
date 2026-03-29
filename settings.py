@@ -11,7 +11,7 @@ if SANDBOX:
 
 DONATION_MIN = 1
 DONATION_MAX = 9_999
-DONATION_DESCRIPTION = 'Darowizna na cele statutowe stowarzyszenia'
+DONATION_DESCRIPTION = 'DAROWIZNA NA CELE STATUTOWE'
 
 import os
 import logging
