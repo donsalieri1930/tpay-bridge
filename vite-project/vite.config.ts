@@ -1,20 +1,13 @@
+import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
-import { resolve } from 'path'
-import htmlPurge from "vite-plugin-purgecss"
 
 export default defineConfig({
-  plugins: [
-    //@ts-ignore
-    htmlPurge({
-      safelist: ["is-loading", 'is-success'],
-    }),
-  ],
+  plugins: [react()],
   build: {
-    rollupOptions: {
-      input: {
-        main: resolve(__dirname, 'index.html'),
-        success: resolve(__dirname, 'success/index.html'),
-        error: resolve(__dirname, 'error/index.html'),
+    minify: 'terser',
+    terserOptions: {
+      format: {
+        comments: false,
       },
     },
   },
