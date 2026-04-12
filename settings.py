@@ -9,6 +9,10 @@ if SANDBOX:
     TPAY_CERT_URL = 'https://secure.sandbox.tpay.com/x509/notifications-jws.pem'
     TPAY_TOKEN_URL = 'https://openapi.sandbox.tpay.com'
 
+DONATION_MIN = 1
+DONATION_MAX = 9_999
+DONATION_DESCRIPTION = 'DAROWIZNA NA CELE STATUTOWE'
+
 import os
 import logging
 from pathlib import Path

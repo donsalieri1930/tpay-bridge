@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+    background: #f6ede3;
+    color: #201515;
+  }
+
+  * {
+    @apply border-ember-200;
+  }
+
+  body {
+    @apply min-h-screen bg-sand bg-paper font-sans text-ink antialiased;
+  }
+
+  ::selection {
+    @apply bg-ember-200 text-ember-900;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

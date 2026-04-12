@@ -4,7 +4,7 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import PlainTextResponse
 
 from db import ConnectionDep
-from settings import CHARGEBACK_UPDATES_STATUS, TPAY_CERT_URL
+from settings import CHARGEBACK_UPDATES_STATUS, TPAY_CERT_URL, DONATION_MIN, DONATION_MAX
 from signature import verify_detached_jws, fetch_jwk_remote
 from storage import TpayAccessTokenStorage
 from tpay import create_tpay_transaction, get_invoice, update_invoice_status
@@ -33,6 +33,29 @@ async def create(uuid: str, payer: int, connection: ConnectionDep):
     logging.info(
         'created invoiceID=%s uuid=%s payer=%d title=%s',
         invoice.invoice_id, uuid, payer, result['title']
+    )
+    return {'url': result['transactionPaymentUrl']}
+
+
+@app.get('/create-donation')
+async def create_donation(uuid: str, payer: int, amount: int, connection: ConnectionDep):
+    invoice = await get_invoice(connection, uuid)
+    if not invoice:
+        raise HTTPException(404)
+    if amount < DONATION_MIN or amount > DONATION_MAX:
+        raise HTTPException(400)
+    token = await tpay_token.get_access_token()
+    result = await create_tpay_transaction(
+        token,
+        invoice,
+        payer,
+        uuid,
+        is_donation=True,
+        amount=str(amount)
+    )
+    logging.info(
+        'created donation uuid=%s payer=%d amount=%d title=%s',
+        uuid, payer, amount, result['title']
     )
     return {'url': result['transactionPaymentUrl']}
 
