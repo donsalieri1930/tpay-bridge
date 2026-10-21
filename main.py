@@ -7,9 +7,11 @@ from db import ConnectionDep
 from settings import CHARGEBACK_UPDATES_STATUS, TPAY_CERT_URL, DONATION_MIN, DONATION_MAX
 from signature import verify_detached_jws, fetch_jwk_remote
 from storage import TpayAccessTokenStorage
+from stats import router as stats_router
 from tpay import create_tpay_transaction, get_invoice, update_invoice_status
 
 app = FastAPI()
+app.include_router(stats_router)
 tpay_token = TpayAccessTokenStorage()
 
 

@@ -15,11 +15,14 @@ DONATION_DESCRIPTION = 'DAROWIZNA NA CELE STATUTOWE'
 
 import os
 import logging
+from datetime import date
 from pathlib import Path
 
 from dotenv import load_dotenv
 
 load_dotenv()
+
+STATS_START = date(2025, 10, 1)
 
 BASE_DIR = Path(__file__).resolve().parent
 
